@@ -77,8 +77,8 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor> {
 			// intent.putExtra("name", name); //String
 			intent.putExtra("id", 2612592938l); // long
 			intent.putExtra("id_string", "2612592938"); // String
-			// intent.putExtra("offset", offset); //offset
-			// intent.putExtra("artUri", artUri); //artUri
+			// intent.putExtra("offset", offset); //int
+			// intent.putExtra("artUri", artUri); //String
 			startActivity(intent);
 			finish();
 		}

@@ -16,10 +16,15 @@ import android.util.Log;
 
 public class MainActivity extends Activity implements LoaderCallbacks<Cursor> {
 
-	private static final Uri CONTENT_URI = Uri.parse("content://com.google.android.music.xdi/browse/1");
+	// Use a loader to traverse through the CONTENT_URI, otherwise try to start
+	// an Intent directly
 	private static final boolean USE_LOADER = true;
+
+	// While traversing through CONTENT_URI, play the first playable song,
+	// otherwise print out everything
 	private static final boolean PLAY_FIRST_SONG_FOUND = true;
 
+	private static final Uri CONTENT_URI = Uri.parse("content://com.google.android.music.xdi/browse/1");
 	// Allowable paths:
 	//
 	// launcher

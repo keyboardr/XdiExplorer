@@ -17,6 +17,8 @@ import android.util.Log;
 public class MainActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 	private static final Uri CONTENT_URI = Uri.parse("content://com.google.android.music.xdi/browse/1");
+	private static final boolean USE_LOADER = true;
+	private static final boolean PLAY_FIRST_SONG_FOUND = true;
 
 	// Allowable paths:
 	//
@@ -68,8 +70,7 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor> {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		boolean useLoader = true;
-		if (useLoader) {
+		if (USE_LOADER) {
 			getLoaderManager().initLoader(0, null, this);
 		} else {
 			Intent intent = new Intent("com.google.android.music.xdi.intent.PLAY");
@@ -91,8 +92,6 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
-		boolean playFoundSong = true;
-
 		if (cursor.moveToFirst()) {
 			Log.v("Cursor Count", "" + cursor.getCount());
 			List<String> columns = new ArrayList<String>();
@@ -108,7 +107,7 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor> {
 				}
 
 				Log.v("Row " + cursor.getPosition(), buildConcatString(", ", row.toArray(new String[row.size()])));
-				if (playFoundSong) {
+				if (PLAY_FIRST_SONG_FOUND) {
 					Intent playIntent;
 					try {
 						playIntent = Intent.parseUri(cursor.getString(cursor.getColumnIndex("intent_uri")), 0);
